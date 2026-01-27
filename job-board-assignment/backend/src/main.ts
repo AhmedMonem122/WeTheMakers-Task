@@ -2,7 +2,6 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import helmet from 'helmet';
-import { ThrottlerGuard } from '@nestjs/throttler';
 import { PrismaService } from './prisma/prisma.service';
 
 export async function createApp() {
@@ -17,8 +16,6 @@ export async function createApp() {
       transform: true
     })
   );
-
-  app.useGlobalGuards(app.get(ThrottlerGuard));
 
   const prismaService = app.get(PrismaService);
   await prismaService.enableShutdownHooks(app);
