@@ -6,18 +6,18 @@ export class CreateJobDto {
   @IsNotEmpty()
   @MinLength(3)
   @MaxLength(120)
-  title: string;
+  title!: string;
 
   @IsString()
   @IsNotEmpty()
   @MinLength(10)
   @MaxLength(2000)
-  description: string;
+  description!: string;
 
   @IsString()
   @IsNotEmpty()
   @MaxLength(120)
-  location: string;
+  location!: string;
 
   @IsOptional()
   @IsNumber()

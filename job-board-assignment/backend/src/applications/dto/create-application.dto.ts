@@ -5,13 +5,13 @@ export class CreateApplicationDto {
   @IsNotEmpty()
   @MinLength(10)
   @MaxLength(4000)
-  resumeText: string;
+  resumeText!: string;
 
   @IsString()
   @IsNotEmpty()
   @MinLength(10)
   @MaxLength(4000)
-  coverLetter: string;
+  coverLetter!: string;
 }
 
 
