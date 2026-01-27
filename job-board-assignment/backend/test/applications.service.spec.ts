@@ -1,39 +1,45 @@
 import { ApplicationsService } from '../src/applications/applications.service';
-import { JobsService } from '../src/jobs/jobs.service';
 
 describe('ApplicationsService', () => {
-  let jobsService: JobsService;
   let service: ApplicationsService;
+  let prisma: any;
 
   beforeEach(() => {
-    jobsService = new JobsService();
-    const job = jobsService.create({
-      title: 'Backend Engineer',
-      description: 'Build APIs',
-      company: 'WeTheMakers',
-      location: 'Remote',
-      isRemote: true,
-      tags: []
-    });
+    prisma = {
+      job: {
+        findUniqueOrThrow: jest.fn().mockResolvedValue({ id: 1 })
+      },
+      application: {
+        create: jest.fn(),
+        findMany: jest.fn()
+      }
+    };
 
-    service = new ApplicationsService(jobsService);
-
-    // Ensure at least one job exists
-    expect(job.id).toBeDefined();
+    service = new ApplicationsService(prisma);
   });
 
-  it('should create an application for a job', () => {
-    const job = jobsService.findAll()[0];
+  it('should create an application for a job', async () => {
+    const createdApp = {
+      id: 1,
+      jobId: 1,
+      userId: 2,
+      resumeText: 'My resume text',
+      coverLetter: 'I am interested',
+      status: 'SUBMITTED',
+      createdAt: new Date()
+    };
 
-    const app = service.create(job.id, {
-      fullName: 'Ahmed',
-      email: 'ahmed@example.com',
+    prisma.application.create.mockResolvedValue(createdApp);
+
+    const app = await service.create(1, 2, {
+      resumeText: 'My resume text',
       coverLetter: 'I am interested'
     });
 
-    expect(app.id).toBeDefined();
-    expect(app.jobId).toBe(job.id);
-    expect(service.findAll()).toHaveLength(1);
+    expect(prisma.job.findUniqueOrThrow).toHaveBeenCalledWith({ where: { id: 1 } });
+    expect(prisma.application.create).toHaveBeenCalled();
+    expect(app.id).toBe(1);
+    expect(app.jobId).toBe(1);
   });
 });
 
