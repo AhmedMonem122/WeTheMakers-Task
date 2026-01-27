@@ -18,7 +18,7 @@ export async function createApp() {
     })
   );
 
-  app.useGlobalGuards(new ThrottlerGuard());
+  app.useGlobalGuards(app.get(ThrottlerGuard));
 
   const prismaService = app.get(PrismaService);
   await prismaService.enableShutdownHooks(app);
