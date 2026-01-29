@@ -90,6 +90,7 @@ export const config = {
     "/login",
     "/jobs/:path*",
     "/job/:path*",
+    "/my-applications/:path*",
     "/profile",
     "/dashboard/:path*",
   ],
