@@ -44,9 +44,26 @@ export default function JobFormDialog({ job }: { job?: Job }) {
       <DialogContent>
         <form action={formAction} className="space-y-4">
           <Input name="title" defaultValue={job?.title} />
+          {state.errors?.title && (
+            <p className="mt-1 text-sm text-red-600">{state.errors.title}</p>
+          )}
           <Textarea name="description" defaultValue={job?.description} />
+          {state.errors?.description && (
+            <p className="mt-1 text-sm text-red-600">
+              {state.errors.description}
+            </p>
+          )}
           <Input name="location" defaultValue={job?.location} />
+          {state.errors?.location && (
+            <p className="mt-1 text-sm text-red-600">
+              {" "}
+              {state.errors.location}
+            </p>
+          )}
           <Input name="salary" type="number" defaultValue={job?.salary} />
+          {state.errors?.salary && (
+            <p className="mt-1 text-sm text-red-600">{state.errors.salary}</p>
+          )}
           {/* Hidden input for Server Action */}
           <input type="hidden" name="status" value={status} />
 
@@ -60,6 +77,9 @@ export default function JobFormDialog({ job }: { job?: Job }) {
               <SelectItem value="CLOSED">Closed</SelectItem>
             </SelectContent>
           </Select>
+          {state.errors?.status && (
+            <p className="mt-1 text-sm text-red-600">{state.errors.status}</p>
+          )}
           <SubmitButton />
         </form>
       </DialogContent>
