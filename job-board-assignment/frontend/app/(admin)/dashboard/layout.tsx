@@ -1,3 +1,5 @@
+import { Toaster } from "sonner";
+
 export default function AdminLayout({
   children,
   sidebar,
@@ -8,12 +10,16 @@ export default function AdminLayout({
   navbar: React.ReactNode;
 }) {
   return (
-    <div className="flex h-full bg-slate-50">
-      {sidebar}
-      <div className="flex-1 flex flex-col">
-        {navbar}
-        <main className="flex-1 px-4 py-6 md:px-6">{children}</main>
+    <>
+      <Toaster position="top-center" richColors />
+
+      <div className="flex h-full bg-slate-50">
+        {sidebar}
+        <div className="flex-1 flex flex-col">
+          {navbar}
+          <main className="flex-1 px-4 py-6 md:px-6">{children}</main>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
