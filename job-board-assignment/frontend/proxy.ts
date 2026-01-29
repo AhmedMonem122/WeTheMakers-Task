@@ -48,7 +48,8 @@ export default function proxy(request: NextRequest) {
     if (
       pathname === "/" ||
       pathname.startsWith("/jobs") ||
-      pathname.startsWith("/job")
+      pathname.startsWith("/job") ||
+      pathname.startsWith("/my-applications")
     ) {
       return NextResponse.redirect(new URL("/dashboard", request.url));
     }
