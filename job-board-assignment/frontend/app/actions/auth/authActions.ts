@@ -67,7 +67,7 @@ export async function loginAction(
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
       path: "/",
-      maxAge: 60 * 60 * 24 * 7, // 7 days
+      maxAge: 60 * 60, // 1 hour
     });
   } catch (error) {
     // --- Axios error handling ---
@@ -174,7 +174,7 @@ export async function registerAction(
     cookieStore.set("register_success", successMessage, {
       path: "/",
       // short life, e.g., 30 seconds
-      maxAge: 30,
+      maxAge: 60 * 60, // 1 hour
       httpOnly: false, // client needs to read for toast on login page (non-httpOnly)
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
