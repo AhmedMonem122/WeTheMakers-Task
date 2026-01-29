@@ -2,7 +2,11 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, X, Briefcase } from "lucide-react";
+import {
+  Menu,
+  // ,X
+  Briefcase,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -42,12 +46,20 @@ export default function Navbar({ isAuthenticated }: NavbarProps) {
           {/* Desktop Links */}
           <div className="hidden md:flex items-center gap-8">
             {isAuthenticated && (
-              <Link
-                href="/jobs"
-                className="text-sm font-medium text-slate-700 hover:text-slate-900"
-              >
-                Jobs
-              </Link>
+              <>
+                <Link
+                  href="/jobs"
+                  className="text-sm font-medium text-slate-700 hover:text-slate-900"
+                >
+                  Jobs
+                </Link>
+                <Link
+                  href="/my-applications"
+                  className="text-sm font-medium text-slate-700 hover:text-slate-900"
+                >
+                  Applications
+                </Link>
+              </>
             )}
 
             {!isAuthenticated ? (
@@ -88,21 +100,30 @@ export default function Navbar({ isAuthenticated }: NavbarProps) {
                 <div className="mb-6 flex items-center justify-between">
                   <span className="font-bold text-lg">Menu</span>
                   <SheetClose asChild>
-                    <button>
+                    {/* <button>
                       <X className="h-5 w-5" />
-                    </button>
+                    </button> */}
                   </SheetClose>
                 </div>
 
                 <nav className="flex flex-col gap-4">
                   {isAuthenticated && (
-                    <Link
-                      href="/jobs"
-                      onClick={() => setOpen(false)}
-                      className="rounded-lg px-3 py-3 hover:bg-slate-100"
-                    >
-                      Jobs
-                    </Link>
+                    <>
+                      <Link
+                        href="/jobs"
+                        onClick={() => setOpen(false)}
+                        className="rounded-lg px-3 py-3 hover:bg-slate-100"
+                      >
+                        Jobs
+                      </Link>
+                      <Link
+                        href="/my-applications"
+                        onClick={() => setOpen(false)}
+                        className="rounded-lg px-3 py-3 hover:bg-slate-100"
+                      >
+                        Applications
+                      </Link>
+                    </>
                   )}
 
                   {!isAuthenticated ? (
