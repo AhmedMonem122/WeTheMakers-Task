@@ -68,7 +68,9 @@ export default function JobsTable({
                 </TableCell>
 
                 <TableCell>
-                  <span className="rounded-full bg-muted px-2 py-1 text-xs whitespace-nowrap">
+                  <span
+                    className={`rounded-full ${job.status === "OPEN" ? "bg-green-500" : "bg-red-500"} px-2 py-1 text-xs text-white whitespace-nowrap`}
+                  >
                     {job.status}
                   </span>
                 </TableCell>
