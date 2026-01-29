@@ -5,35 +5,9 @@ import { useQuery } from "@tanstack/react-query";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
-import { Job } from "@/types/jobs";
-import apiClient from "@/api/apiClient";
 import JobCard from "./job";
 import JobsSkeleton from "./job-skeleton";
-
-/* -----------------------------
-   Types
-------------------------------*/
-
-type JobsResponse = {
-  items: Job[];
-  total: number;
-  page: number;
-  pageSize: number;
-};
-
-/* -----------------------------
-   API
-------------------------------*/
-const fetchJobs = async (
-  page: number,
-  pageSize: number,
-  search: string,
-): Promise<JobsResponse> => {
-  const { data } = await apiClient.get("/jobs", {
-    params: { page, pageSize, search },
-  });
-  return data;
-};
+import { fetchJobs } from "@/app/lib/job-listings";
 
 /* -----------------------------
    Page
