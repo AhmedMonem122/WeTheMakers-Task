@@ -1,40 +1,46 @@
-import React from 'react'
-import { TextInput, View, Text, StyleSheet } from 'react-native'
+import React, { forwardRef } from 'react';
+import { View, Text, TextInput, TextInputProps } from 'react-native';
+import { cn } from '@/lib/utils';
 
-type Props = {
-  value?: string
-  onChangeText?: (t: string) => void
-  placeholder?: string
-  secureTextEntry?: boolean
-  keyboardType?: any
-  label?: string
+interface InputProps extends TextInputProps {
+  label?: string;
+  error?: string;
+  helperText?: string;
+  containerClassName?: string;
 }
 
-export default function Input({ value, onChangeText, placeholder, secureTextEntry, keyboardType, label }: Props) {
-  return (
-    <View style={styles.container}>
-      {label ? <Text style={styles.label}>{label}</Text> : null}
-      <TextInput
-        value={value}
-        onChangeText={onChangeText}
-        placeholder={placeholder}
-        secureTextEntry={secureTextEntry}
-        keyboardType={keyboardType}
-        style={styles.input}
-      />
-    </View>
-  )
-}
+export const Input = forwardRef<TextInput, InputProps>(
+  ({ label, error, helperText, containerClassName, className, ...props }, ref) => {
+    return (
+      <View className={cn('mb-4', containerClassName)}>
+        {label && (
+          <Text className="text-gray-700 font-semibold mb-2 text-base">
+            {label}
+          </Text>
+        )}
+        <TextInput
+          ref={ref}
+          className={cn(
+            'border-2 rounded-xl px-4 py-3 text-base bg-white',
+            error ? 'border-danger-500' : 'border-gray-300 focus:border-primary-600',
+            className
+          )}
+          placeholderTextColor="#9ca3af"
+          {...props}
+        />
+        {error && (
+          <Text className="text-danger-500 text-sm mt-1 ml-1">
+            {error}
+          </Text>
+        )}
+        {helperText && !error && (
+          <Text className="text-gray-500 text-sm mt-1 ml-1">
+            {helperText}
+          </Text>
+        )}
+      </View>
+    );
+  }
+);
 
-const styles = StyleSheet.create({
-  container: { marginVertical: 6 },
-  label: { fontSize: 12, color: '#555', marginBottom: 4 },
-  input: {
-    height: 40,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 10,
-    backgroundColor: '#fff',
-  },
-})
+Input.displayName = 'Input';
